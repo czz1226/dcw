@@ -55,12 +55,12 @@ $config['tables'] = array(
 	'newsletter_lists' => array(
 		'id' => 'integer',
 		'name' => 'text',
-		'success_email_template' => 'integer',
-		'success_email_sender' => 'integer',
-		'unsubscription_email_sender' => 'integer',
-		'unsubscription_email_template' => 'integer',
-		'confirmation_email_template' => 'integer',
-		'confirmation_email_sender' => 'integer',
+		'success_email_template_id' => 'integer',
+		'success_email_sender_id' => 'integer',
+		'unsubscription_email_sender_id' => 'integer',
+		'unsubscription_email_template_id' => 'integer',
+		'confirmation_email_template_id' => 'integer',
+		'confirmation_email_sender_id' => 'integer',
 		'created_at' => 'dateTime'
 	),
     

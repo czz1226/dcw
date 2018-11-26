@@ -9,6 +9,11 @@ $templates_params = array();
 $templates_params['no_limit'] = true;
 $templates_params['order_by'] = "created_at desc";
 $templates = newsletter_get_templates($templates_params);
+
+$senders_params = array();
+$senders_params['no_limit'] = true;
+$senders_params['order_by'] = "created_at desc";
+$senders = newsletter_get_senders($senders_params);
 ?>
 
 <style>
@@ -66,9 +71,7 @@ $templates = newsletter_get_templates($templates_params);
 		            type: 'POST',
 		            data: data,
 		            success: function (result) {
-
-
-			            return;
+						
 		                mw.notification.success('<?php _e('List saved'); ?>');
 		
 		                // Remove modal
@@ -141,6 +144,20 @@ $templates = newsletter_get_templates($templates_params);
 		
 		<tr>
 		<td>
+		<label class="mw-ui-label"><?php _e('Success Email Sender'); ?></label> 
+		</td>
+		<td>
+		<select name="success_email_sender_id" class="mw-ui-field mw-ui-field-full-width">
+		<?php foreach($senders as $sender) : ?>
+		<option value="<?php echo $sender['id']; ?>"><?php echo $sender['name']; ?></option>
+		<?php endforeach; ?>
+		</select>
+		<div class="js-field-message"></div>
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
 		<label class="mw-ui-label"><?php _e('Unsubscription Email Template'); ?></label> 
 		</td>
 		<td>
@@ -155,16 +172,16 @@ $templates = newsletter_get_templates($templates_params);
 		
 		<tr>
 		<td>
-		<label class="mw-ui-label"><?php _e('Success Email Sender'); ?></label> 
+		<label class="mw-ui-label"><?php _e('Unsubscription Email Sender'); ?></label> 
 		</td>
 		<td>
-		<select name="success_email_sender_id" class="mw-ui-field mw-ui-field-full-width">
-		<?php foreach($templates as $template) : ?>
-		<option value="<?php echo $template['id']; ?>"><?php echo $template['title']; ?></option>
+		<select name="unsubscription_email_sender_id" class="mw-ui-field mw-ui-field-full-width">
+		<?php foreach($senders as $sender) : ?>
+		<option value="<?php echo $sender['id']; ?>"><?php echo $sender['name']; ?></option>
 		<?php endforeach; ?>
 		</select>
 		<div class="js-field-message"></div>
-		</td>
+			</td>
 		</tr>
 	
 		<tr>
@@ -187,8 +204,8 @@ $templates = newsletter_get_templates($templates_params);
 		</td>
 		<td>
 		<select name="confirmation_email_sender_id" class="mw-ui-field mw-ui-field-full-width">
-		<?php foreach($templates as $template) : ?>
-		<option value="<?php echo $template['id']; ?>"><?php echo $template['title']; ?></option>
+		<?php foreach($senders as $sender) : ?>
+		<option value="<?php echo $sender['id']; ?>"><?php echo $sender['name']; ?></option>
 		<?php endforeach; ?>
 		</select>
 		<div class="js-field-message"></div>

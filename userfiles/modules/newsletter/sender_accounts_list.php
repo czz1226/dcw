@@ -35,7 +35,7 @@ $senders = newsletter_get_senders();
                     <?php print $sender['created_at']; ?>
                     </td>
                     <td>
-                    <?php print $sender['is_active']; ?>
+                    <?php if ($sender['is_active']): ?> <?php _e('Yes'); ?> <?php else: ?> <?php _e('No'); ?> <?php endif; ?>
                     </td>
                     <td>
                         <button class="mw-ui-btn" onclick="edit_sender('<?php print $sender['id']; ?>')"><?php _e('Edit'); ?></button>
