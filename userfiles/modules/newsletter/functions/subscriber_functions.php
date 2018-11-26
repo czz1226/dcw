@@ -175,6 +175,14 @@ function newsletter_get_subscriber_lists($subscriber_id) {
     return db_get($data);
 }
 
+function newsletter_get_subscribers_for_list($list_id) {
+	return DB::table('newsletter_subscribers_lists')
+	->join('newsletter_subscribers', 'newsletter_subscribers.id', '=', 'newsletter_subscribers_lists.subscriber_id')
+	->select('newsletter_subscribers_lists.*', 'newsletter_subscribers.name', 'newsletter_subscribers.email', 'newsletter_subscribers.is_subscribed')
+	->where('newsletter_subscribers.is_subscribed', 1)
+	->get();
+}
+
 api_expose_admin('newsletter_delete_subscriber');
 function newsletter_delete_subscriber($params) {
     if (isset($params ['id'])) {

@@ -33,7 +33,7 @@ if ((url_param('mod_action') != false)) {
 			<a class="mw-ui-btn" href="javascript:;"><?php _e('Lists'); ?></a>
 			<a class="mw-ui-btn" href="javascript:;"><?php _e('Campaigns'); ?></a>
 			<a class="mw-ui-btn" href="javascript:;"><?php _e('Templates'); ?></a>
-			<a class="mw-ui-btn" href="javascript:;"><?php _e('Sender Accounts'); ?></a>
+			<a class="mw-ui-btn" href="javascript:;"><?php _e('Sending Accounts'); ?></a>
 			<a class="mw-ui-btn" href="javascript:;"><?php _e('Settings'); ?></a>
 		</div>
 		<div class="mw-ui-box">

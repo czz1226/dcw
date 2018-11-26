@@ -25,7 +25,7 @@ function newsletter_get_campaigns() {
             'name'=>$campaigns->name,
             'subject'=>$campaigns->subject,
             'from_name'=>$campaigns->from_name,
-            'from_email'=>$campaigns->from_email,
+            //'from_email'=>$campaigns->from_email,
             'created_at'=>$campaigns->created_at,
             'list_name'=>$campaigns->list_name,
             'is_done'=>$campaigns->is_done,
