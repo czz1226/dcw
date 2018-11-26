@@ -9,11 +9,12 @@ $template = newsletter_get_template(array("id"=>$template_id));
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>GrapesJS Demo - Free Open Source Newsletter Editor</title>
-     	 <script type="text/javascript">
-    mw.require("<?php print $config['url_to_module'];?>css/grapes.min.css");
-    mw.require("<?php print $config['url_to_module'];?>js/grapes.min.js");
-    </script>
+    <title></title>
+    
+    <link rel="stylesheet" href="<?php print $config['url_to_module'];?>css/grapes.min.css">
+    <link rel="stylesheet" href="<?php print $config['url_to_module'];?>css/grapesjs-preset-newsletter.css">
+    <script src="<?php print $config['url_to_module'];?>js/grapes.min.js"></script>
+    <script src="<?php print $config['url_to_module'];?>js/grapesjs-preset-newsletter.min.js"></script>
     
 	<style type="text/css">
 	 body,
@@ -30,54 +31,60 @@ $template = newsletter_get_template(array("id"=>$template_id));
 
   <body>
  
-
-    <textarea id="gjs" style="height:0px; overflow:hidden;">
-    <?php print $template['text']; ?>
-	</textarea>
+    <div id="gjs" style="height:0px; overflow:hidden;">
+   		 <?php print $template['text']; ?>
+	</div>
 	
 	<style>
-	body{
-		background:#000 !important;
-	}
 	.mw_modal_container {
         padding: 0px !important;
     }
 	</style>
       
-   <script type="text/javascript">
+    <script type="text/javascript">
+      var host = 'http://artf.github.io/grapesjs/';
+      var images = [
+        host + 'img/grapesjs-logo.png',
+        host + 'img/tmp-blocks.jpg',
+        host + 'img/tmp-tgl-images.jpg',
+        host + 'img/tmp-send-test.jpg',
+        host + 'img/tmp-devices.jpg',
+      ];
+
+      // Set up GrapesJS editor with the Newsletter plugin
       var editor = grapesjs.init({
-        showOffsets: 1,
-        noticeOnUnload: 0,
-        container: '#gjs',
         height: '100%',
-        fromElement: true,
-        storageManager: { autoload: 0 },
-        styleManager : {
-          sectors: [{
-              name: 'General',
-              open: false,
-              buildProps: ['float', 'display', 'position', 'top', 'right', 'left', 'bottom']
-            },{
-              name: 'Dimension',
-              open: false,
-              buildProps: ['width', 'height', 'max-width', 'min-height', 'margin', 'padding'],
-            },{
-              name: 'Typography',
-              open: false,
-              buildProps: ['font-family', 'font-size', 'font-weight', 'letter-spacing', 'color', 'line-height', 'text-shadow'],
-            },{
-              name: 'Decorations',
-              open: false,
-              buildProps: ['border-radius-c', 'background-color', 'border-radius', 'border', 'box-shadow', 'background'],
-            },{
-              name: 'Extra',
-              open: false,
-              buildProps: ['transition', 'perspective', 'transform'],
-            }
-          ],
+        //noticeOnUnload: 0,
+        storageManager:{
+          autoload: 0,
         },
+        assetManager: {
+          assets: images,
+          upload: 0,
+          uploadText: 'Uploading is not available in this demo',
+        },
+        container : '#gjs',
+        fromElement: true,
+        plugins: ['gjs-preset-newsletter'],
+        pluginsOpts: {
+          'gjs-preset-newsletter': {
+            modalLabelImport: 'Paste all your code here below and click import',
+            modalLabelExport: 'Copy the code and use it wherever you want',
+            codeViewerTheme: 'material',
+            //defaultTemplate: templateImport,
+            importPlaceholder: '<table class="table"><tr><td class="cell">Hello world!</td></tr></table>',
+            cellStyle: {
+              'font-size': '12px',
+              'font-weight': 300,
+              'vertical-align': 'top',
+              color: 'rgb(111, 119, 125)',
+              margin: 0,
+              padding: 0,
+            }
+          }
+        }
       });
-      </script>
+    </script>
   </body>
 </html>
 

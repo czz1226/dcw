@@ -2,6 +2,7 @@
 
 <script>
 	function list_templates() {
+		$('.mw-iframe-editor').remove();
 		$('.js-edit-template-wrapper').slideUp();
 		$('.js-templates-list-wrapper').slideDown();
 	}
@@ -20,14 +21,19 @@
                  data: data,
                  success: function (result) {
     
-                	 initEditor();
-                     
                 	 $('.js-edit-template-id').val(result.id);
                      $('.js-edit-template-title').val(result.title);
                      $('.js-edit-template-text').val(result.text);
                      
+					 initEditor();
                  }
              });
+		} else {
+			 $('.js-edit-template-id').val('0');
+             $('.js-edit-template-title').val('');
+             $('.js-edit-template-text').val('');
+             
+			 initEditor();
 		}
 
 		 $('.js-templates-list-wrapper').slideUp();

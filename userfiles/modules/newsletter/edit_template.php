@@ -11,20 +11,33 @@
 
 <script type="text/javascript">
 function edit_iframe_template(template_id) {
-	var modal = mw.tools.open_module_modal('newsletter/edit_template_iframe', {template_id:template_id}, 
-			{overlay: true, iframe:true, width:1960,height:1950,  skin: 'simple'});
 
-	console.log(modal);
+	var module_type = 'newsletter';
+	var module_id = 'edit_template_iframe';
+	
+	var src = mw.settings.site_url + 'api/module?template_id=' + template_id + '&id=' + module_id + '&type=' + module_type + '&autosize=true';
+	var modal = mw.tools.modal.frame({
+         url: src,
+         width: 1500,
+         height: 1500,
+         name: 'mw-module-settings-editor-front',
+         title: 'Settings',
+         template: 'default',
+         center: false,
+         resize: true,
+         draggable: true
+     });
 }
 
 initEditor = function(){
-    if(!window.editorLaunced){
+    if(window.editorLaunced){
+		$('.mw-iframe-editor').remove();
+    }
         editorLaunced = true;
-        mw.editor({
-            element:mwd.getElementById('editorAM'),
+        var editorTemplate = mw.editor({
+            element:mwd.getElementById('js-editor-template'),
             hideControls:['format', 'fontsize', 'justifyfull']
         });
-    }
 };
 
 $(document).ready(function () {
@@ -80,7 +93,7 @@ $(document).ready(function () {
 		
 		<button onclick="edit_iframe_template($('.js-edit-template-id').val())" type="button" class="mw-ui-btn" style="float:right;"><?php _e('Edit template'); ?></button>
 		
-		<textarea id="editorAM" name="text" class="js-edit-template-text" style="border:3px solid #cfcfcf; width:100%;height:500px;margin-top:5px;"></textarea>
+		<textarea id="js-editor-template" name="text" class="js-edit-template-text" style="border:3px solid #cfcfcf; width:100%;height:500px;margin-top:5px;"></textarea>
 		
 		 <div class="js-template-design"></div>
 		<div class="js-field-message"></div>
