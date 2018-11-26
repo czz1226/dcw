@@ -26,13 +26,14 @@ if ((url_param('mod_action') != false)) {
 		<span class="mai-mail"></span> <?php _e('Newsletter'); ?></h2>
 </div>
 
-<div class="admin-side-content">
+<div class="admin-side-content-x">
 	<div class="module-live-edit-settings" id="newsletter-admin">
 		<div class="mw-ui-btn-nav mw-ui-btn-nav-tabs">
 			<a class="mw-ui-btn active" href="javascript:;"><?php _e('Subscribers'); ?></a>
 			<a class="mw-ui-btn" href="javascript:;"><?php _e('Lists'); ?></a>
 			<a class="mw-ui-btn" href="javascript:;"><?php _e('Campaigns'); ?></a>
 			<a class="mw-ui-btn" href="javascript:;"><?php _e('Templates'); ?></a>
+			<a class="mw-ui-btn" href="javascript:;"><?php _e('Sender Accounts'); ?></a>
 			<a class="mw-ui-btn" href="javascript:;"><?php _e('Settings'); ?></a>
 		</div>
 		<div class="mw-ui-box">
@@ -47,6 +48,9 @@ if ((url_param('mod_action') != false)) {
 			</div>
 			<div style="display: none;" class="mw-ui-box-content">
 				<module type="newsletter/templates" />
+			</div>
+			<div style="display: none;" class="mw-ui-box-content">
+				<module type="newsletter/sender_accounts" />
 			</div>
 			<div style="display: none;" class="mw-ui-box-content">
 				<module type="newsletter/privacy_settings" />

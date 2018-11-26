@@ -1,5 +1,6 @@
 <?php
 
+include 'functions/sender_functions.php';
 include 'functions/template_functions.php';
 include 'functions/subscriber_functions.php';
 include 'functions/campaign_functions.php';

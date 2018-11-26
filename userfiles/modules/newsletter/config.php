@@ -9,7 +9,7 @@ $config['position'] = 55;
 $config['version'] = 0.1;
 
 $config['tables'] = array(
-
+	
     'newsletter_subscribers' => array(
         'id' => 'integer',
         'name' => 'text',
@@ -24,9 +24,10 @@ $config['tables'] = array(
         'name' => 'text',
         'subject' => 'text',
         'from_name' => 'text',
-        'from_email' => 'text',
+        //'from_email' => 'text',
         'created_at' => 'dateTime',
         'list_id' => 'integer',
+    	'sender_account_id' => 'integer',
         'is_done' => 'integer'
     ),
 
@@ -37,14 +38,29 @@ $config['tables'] = array(
         'created_at' => 'dateTime',
         'is_done' => 'integer'
     ),
+		
+	'newsletter_sender_accounts' => array(
+		'id' => 'integer',
+		'name' => 'text',
+		'from_name' => 'text',
+		'from_email' => 'text',
+		'reply_email' => 'text',
+		'created_at' => 'dateTime',
+		'account_type' => 'text',
+		'account_login' => 'text',
+		'account_pass' => 'text',
+		'is_active' => 'integer'
+	),
 	
 	'newsletter_lists' => array(
 		'id' => 'integer',
 		'name' => 'text',
-		'success_email_sender_id' => 'integer',
-		'success_email_template_id' => 'integer',
-		'unsubscription_email_sender_id' => 'integer',
-		'unsubscription_email_template_id' => 'integer',
+		'success_email_template' => 'integer',
+		'success_email_sender' => 'integer',
+		'unsubscription_email_sender' => 'integer',
+		'unsubscription_email_template' => 'integer',
+		'confirmation_email_template' => 'integer',
+		'confirmation_email_sender' => 'integer',
 		'created_at' => 'dateTime'
 	),
     

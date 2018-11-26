@@ -4,6 +4,11 @@
 if (isset($params['id'])) {
 	$list = newsletter_get_list($params['id']);
 }
+
+$templates_params = array();
+$templates_params['no_limit'] = true;
+$templates_params['order_by'] = "created_at desc";
+$templates = newsletter_get_templates($templates_params);
 ?>
 
 <style>
@@ -13,6 +18,16 @@ if (isset($params['id'])) {
 .js-danger-text {
 	padding-top: 5px;
 	color: #c21f1f;
+}
+.js-template-select-table {
+	border:0px;
+	width:100%;
+}
+.js-template-select-table tr {
+	height:50px;
+}
+.js-template-select-table td {
+	height:50px;
 }
 </style>
 
@@ -51,7 +66,9 @@ if (isset($params['id'])) {
 		            type: 'POST',
 		            data: data,
 		            success: function (result) {
-			            
+
+
+			            return;
 		                mw.notification.success('<?php _e('List saved'); ?>');
 		
 		                // Remove modal
@@ -101,6 +118,87 @@ if (isset($params['id'])) {
 		<input name="name" value="<?php echo $list['name']; ?>" type="text" class="mw-ui-field mw-ui-field-full-width js-validation" />
 		<div class="js-field-message"></div>
 	</div>
+	
+	<?php if (empty($templates)): ?>
+		<b style="color:#b93636;">First you need to create templates.</b>
+	<?php endif; ?>
+	
+	<?php if (!empty($templates)): ?>
+		<table class="js-template-select-table">
+		<tr>
+		<td style="width:50%;">
+		<label class="mw-ui-label"><?php _e('Success Email Template'); ?></label> 
+		</td>
+		<td style="width:50%;">
+		<select name="success_email_template_id" class="mw-ui-field mw-ui-field-full-width">
+		<?php foreach($templates as $template) : ?>
+		<option value="<?php echo $template['id']; ?>"><?php echo $template['title']; ?></option>
+		<?php endforeach; ?>
+		</select>
+		<div class="js-field-message"></div>
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
+		<label class="mw-ui-label"><?php _e('Unsubscription Email Template'); ?></label> 
+		</td>
+		<td>
+		<select name="unsubscription_email_template_id" class="mw-ui-field mw-ui-field-full-width">
+		<?php foreach($templates as $template) : ?>
+		<option value="<?php echo $template['id']; ?>"><?php echo $template['title']; ?></option>
+		<?php endforeach; ?>
+		</select>
+		<div class="js-field-message"></div>
+			</td>
+		</tr>
+		
+		<tr>
+		<td>
+		<label class="mw-ui-label"><?php _e('Success Email Sender'); ?></label> 
+		</td>
+		<td>
+		<select name="success_email_sender_id" class="mw-ui-field mw-ui-field-full-width">
+		<?php foreach($templates as $template) : ?>
+		<option value="<?php echo $template['id']; ?>"><?php echo $template['title']; ?></option>
+		<?php endforeach; ?>
+		</select>
+		<div class="js-field-message"></div>
+		</td>
+		</tr>
+	
+		<tr>
+		<td>
+		<label class="mw-ui-label"><?php _e('Confirmation Email Template'); ?></label>
+		 </td>
+		 <td>
+		<select name="confirmation_email_template_id" class="mw-ui-field mw-ui-field-full-width">
+		<?php foreach($templates as $template) : ?>
+		<option value="<?php echo $template['id']; ?>"><?php echo $template['title']; ?></option>
+		<?php endforeach; ?>
+		</select>
+		<div class="js-field-message"></div>
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
+		<label class="mw-ui-label"><?php _e('Confirmation Email Sender'); ?></label> 
+		</td>
+		<td>
+		<select name="confirmation_email_sender_id" class="mw-ui-field mw-ui-field-full-width">
+		<?php foreach($templates as $template) : ?>
+		<option value="<?php echo $template['id']; ?>"><?php echo $template['title']; ?></option>
+		<?php endforeach; ?>
+		</select>
+		<div class="js-field-message"></div>
+		</td>
+		</tr>
+		
+	</table>
+	<?php endif; ?>
+	
+	
 
 	<button type="submit" class="mw-ui-btn"><?php _e('Save'); ?></button>
 	<?php if(isset($list['id'])): ?>

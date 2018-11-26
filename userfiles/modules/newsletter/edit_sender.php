@@ -2,7 +2,7 @@
 
 <?php 
 if (isset($params['id'])) {
-    $campaign = newsletter_get_campaign($params['id']);
+	$sender = newsletter_get_sender($params);
 }
 ?>
 
@@ -22,21 +22,21 @@ if (isset($params['id'])) {
 	$(document).ready(function () {
 		
 		$(document).on("change", ".js-validation", function() {
-			$('.js-edit-campaign-form :input').each(function() {
+			$('.js-edit-sender-form :input').each(function() {
 				if ($(this).hasClass('js-validation')) {
 					runFieldsValidation(this);
 				}
 			});
 		});
 
-		$(".js-edit-campaign-form").submit(function(e) {
+		$(".js-edit-sender-form").submit(function(e) {
 			
 			e.preventDefault(e);
 				
 			 var errors = {};
 	         var data = mw.serializeFields(this);
 	        
-			$('.js-edit-campaign-form :input').each(function(k,v) {
+			$('.js-edit-sender-form :input').each(function(k,v) {
 					if ($(this).hasClass('js-validation')) {
 						if (runFieldsValidation(this) == false) {
 							errors[k] = true;
@@ -47,12 +47,12 @@ if (isset($params['id'])) {
 	        if (isEmpty(errors)) {
 				
 		        $.ajax({
-		            url: mw.settings.api_url + 'newsletter_save_campaign',
+		            url: mw.settings.api_url + 'newsletter_save_sender',
 		            type: 'POST',
 		            data: data,
 		            success: function (result) {
 			            
-		                mw.notification.success('<?php _e('Campaign saved'); ?>');
+		                mw.notification.success('<?php _e('Sender saved'); ?>');
 		
 		                // Remove modal
 		                if (typeof(edit_campaign_modal) != 'undefined' && edit_campaign_modal.modal) {
@@ -60,7 +60,7 @@ if (isset($params['id'])) {
 					     }
 					       
 		                // Reload the modules
-		                mw.reload_module('newsletter/campaigns_list')
+		                mw.reload_module('newsletter/sender_accounts_list')
 		                mw.reload_module_parent('newsletter');
 		
 		            },
@@ -101,64 +101,38 @@ if (isset($params['id'])) {
 	}
 </script>
 
-<form class="js-edit-campaign-form">
+<form class="js-edit-sender-form">
 
-	<?php 
-	$lists = newsletter_get_lists();
-	?>
-	
 	<div class="mw-ui-field-holder">
 		<label class="mw-ui-label"><?php _e('Name'); ?></label> 
-		<input name="name" value="<?php echo $campaign['name']; ?>" type="text" class="mw-ui-field mw-ui-field-full-width js-validation" />
+		<input name="name" value="<?php echo $sender['name']; ?>" type="text" class="mw-ui-field mw-ui-field-full-width js-validation" />
 		<div class="js-field-message"></div>
 	</div>
 	
 	<div class="mw-ui-field-holder">
-		<label class="mw-ui-label"><?php _e('Subject'); ?></label> 
-		<input name="subject" value="<?php echo $campaign['subject']; ?>" type="text" class="mw-ui-field mw-ui-field-full-width js-validation" />
+		<label class="mw-ui-label"><?php _e('From Name'); ?></label> 
+		<input name="from_name" value="<?php echo $sender['from_name']; ?>" type="text" class="mw-ui-field mw-ui-field-full-width js-validation" />
 		<div class="js-field-message"></div>
 	</div>
 	
 	<div class="mw-ui-field-holder">
-		<label class="mw-ui-label"><?php _e('Campaign Name'); ?></label> 
-		<input name="from_name" value="<?php echo $campaign['from_name']; ?>" type="text" class="mw-ui-field mw-ui-field-full-width js-validation" />
+		<label class="mw-ui-label"><?php _e('From Email'); ?></label> 
+		<input name="from_email" value="<?php echo $sender['from_email']; ?>" type="text" class="mw-ui-field mw-ui-field-full-width js-validation js-validation-email" />
 		<div class="js-field-message"></div>
 	</div>
 	
-	<!--
 	<div class="mw-ui-field-holder">
-		<label class="mw-ui-label"><?php // _e('Campaign Email'); ?></label> 
-		<input name="from_email" value="<?php // echo $campaign['from_email']; ?>" type="text" class="mw-ui-field mw-ui-field-full-width js-validation js-validation-email" />
+		<label class="mw-ui-label"><?php _e('Reply Email'); ?></label> 
+		<input name="reply_email" value="<?php echo $sender['reply_email']; ?>" type="text" class="mw-ui-field mw-ui-field-full-width js-validation js-validation-email" />
 		<div class="js-field-message"></div>
 	</div>
-	!-->
 	
-	<div class="mw-ui-field-holder">
-		<label class="mw-ui-label"><?php _e('List'); ?></label> 
-		<select name="list_id" class="mw-ui-field mw-ui-field-full-width">
-		<?php if (!empty($lists)): ?>
-		<?php foreach($lists as $list) : ?>
-		<option value="<?php echo $list['id']; ?>"><?php echo $list['name']; ?></option>
-		<?php endforeach; ?>
-		<?php endif; ?>
-		</select>
-		<div class="js-field-message"></div>
-		<?php if (empty($lists)): ?>
-			<b style="color:#b93636;">First you need to create lists.</b>
-		<?php endif; ?>
-		<br />
-		<button class="mw-ui-btn mw-ui-btn-icon" onclick="edit_list();"> 
-			<span class="mw-icon-plus"></span> <?php _e('Add new list'); ?>
-		</button>
-	</div>
 	
-	<div class="mw-ui-field-holder">
-		<label class="mw-ui-label"><?php _e('Done'); ?>: <?php if($campaign['is_done']): ?> Yes <?php else: ?> No <?php endif; ?></label> 
-	</div>
+	
 	<button type="submit" class="mw-ui-btn"><?php _e('Save'); ?></button>
-	<?php if(isset($campaign['id'])): ?>
-	<a class="mw-ui-btn mw-ui-btn-icon" href="javascript:;" onclick="delete_campaign('<?php print $campaign['id']; ?>')"> <span class="mw-icon-bin"></span> </a>
-	<input type="hidden" value="<?php echo $campaign['id']; ?>" name="id" />
+	<?php if(isset($sender['id'])): ?>
+	<a class="mw-ui-btn mw-ui-btn-icon" href="javascript:;" onclick="delete_sender('<?php print $sender['id']; ?>')"> <span class="mw-icon-bin"></span> </a>
+	<input type="hidden" value="<?php echo $sender['id']; ?>" name="id" />
 	<?php endif; ?>
 	<br />
 	<br />
