@@ -47,7 +47,12 @@ $config['tables'] = array(
 		'reply_email' => 'text',
 		'created_at' => 'dateTime',
 		'account_type' => 'text',
-		'account_login' => 'text',
+		// SMTP SETTINGS
+		'smtp_username' => 'text',
+		'smtp_password' => 'text',
+		'smtp_host' => 'text',
+		'smtp_port' => 'text',
+		
 		'account_pass' => 'text',
 		'is_active' => 'integer'
 	),

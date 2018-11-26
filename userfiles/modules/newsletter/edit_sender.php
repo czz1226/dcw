@@ -127,7 +127,47 @@ if (isset($params['id'])) {
 		<div class="js-field-message"></div>
 	</div>
 	
+	<div class="mw-ui-field-holder">
+		<label class="mw-ui-label"><?php _e('Send email function'); ?></label> 
+		<select class="mw-ui-field mw-ui-field-full-width" name="account_type">
+		<option value="php_mail">PHP Mail</option>
+		<option value="smtp">SMTP Server</option>
+		<option value="mailchimp">Mailchimp</option>
+		<option value="mailgun">Mailgum</option>
+		<option value="amazon_ses">Amazon SES</option>
+		<option value="sparkpost">Sparkpost</option>
+		</select>
+	</div>
 	
+	
+		
+	<div class="js-sender-account-type">
+	<div class="mw-ui-field-holder">
+	   <label class="mw-ui-label">Smtp Username	
+	   <br>
+	   <small>example: user@email.com</small></label>
+	   <input name="smtp_username" class="mw_option_field mw-ui-field mw-options-form-binded mw-ui-field-full-width" type="text" value="<?php echo $sender['smtp_username']; ?>">
+	</div>
+	<div class="mw-ui-field-holder">
+	   <label class="mw-ui-label">Smtp Password</label>
+	   <input name="smtp_password" class="mw_option_field mw-ui-field mw-options-form-binded mw-ui-field-full-width" type="text" value="<?php echo $sender['smtp_password']; ?>">
+	</div>
+	<div class="mw-ui-field-holder">
+	   <label class="mw-ui-label">
+	   Smtp Email Host <br>
+	   <small>example: smtp.gmail.com</small>
+	   </label>
+	   <input name="smtp_host" class="mw_option_field mw-ui-field mw-options-form-binded mw-ui-field-full-width" type="text" value="<?php echo $sender['smtp_host']; ?>">
+	</div>
+	<div class="mw-ui-field-holder">
+	   <label class="mw-ui-label">
+	   Smtp Email Port<br>
+	   <small>example: 587 or 995, 465, 110, 25</small>
+	   </label>
+	   <input name="smtp_port" class="mw_option_field mw-ui-field mw-options-form-binded mw-ui-field-full-width" type="text" value="<?php echo $sender['smtp_port']; ?>">
+	</div>
+	</div>
+
 	
 	<button type="submit" class="mw-ui-btn"><?php _e('Save'); ?></button>
 	<?php if(isset($sender['id'])): ?>
