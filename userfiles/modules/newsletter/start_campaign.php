@@ -1,5 +1,5 @@
 <?php only_admin_access(); ?>
-
+<?php include 'providers/NewsletterMailSender.php'; ?>
 <?php 
 if (isset($params['id'])) {
     $campaign = newsletter_get_campaign($params['id']);
@@ -39,6 +39,7 @@ foreach($subscribers as $subscriber) {
 	$newsletterMailSender->setSubscriber($subscriber);
 	$newsletterMailSender->setSender($sender);
 	$newsletterMailSender->setTemplate($template);
-	$log = $newsletterMailSender->sendMail();
+	echo $newsletterMailSender->sendMail();
+	
 }
 ?>
