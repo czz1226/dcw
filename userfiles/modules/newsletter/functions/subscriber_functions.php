@@ -22,7 +22,7 @@ function newsletter_subscribe($params) {
         'email' => 'required|email|unique:newsletter_subscribers'
     ];
     
-    $input = Input::only('email', 'terms', 'captcha');
+    $input = Input::only('name', 'email', 'list_id', 'terms', 'captcha');
     $messages = array(
         'unique' => 'This email is already subscribed!'
     );
@@ -92,6 +92,8 @@ function newsletter_subscribe($params) {
     
     newsletter_save_subscriber([
         'email' => Input::get('email'),
+    	'name' => Input::get('name'),
+    	'list_id' => Input::get('list_id'),
         'confirmation_code' => $confirmation_code
     ]);
     
@@ -121,6 +123,7 @@ function newsletter_get_subscriber($subscriber_id)
 
 api_expose_admin('newsletter_save_subscriber');
 function newsletter_save_subscriber($data) {
+	
     $table = "newsletter_subscribers";
     
     if (! isset($data ['is_subscribed']) and ! isset($data ['id'])) {
@@ -129,14 +132,21 @@ function newsletter_save_subscriber($data) {
     
     if (! isset($data['subscribed_for'])) {
         // Default list
+        
     } else {
         newsletter_delete_subscriber_lists($data['id']);
-        foreach ($data['subscribed_for'] as $subscriber_id) {
-            newsletter_save_subscriber_list($data['id'], $subscriber_id);
+        foreach ($data['subscribed_for'] as $list_id) {
+        	newsletter_save_subscriber_list($data['id'], $list_id);
         }
     }
     
-    return db_save($table, $data);
+    $save_id = db_save($table, $data);
+    
+    if (isset($data['list_id'])) {
+    	newsletter_save_subscriber_list($save_id, $data['list_id']);
+    }
+    
+    return $save_id;
 }
 
 function newsletter_delete_subscriber_lists($subscriber_id) {
