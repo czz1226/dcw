@@ -4,6 +4,11 @@
 if (isset($params['id'])) {
     $campaign = newsletter_get_campaign($params['id']);
 }
+
+$senders_params = array();
+$senders_params['no_limit'] = true;
+$senders_params['order_by'] = "created_at desc";
+$senders = newsletter_get_senders($senders_params);
 ?>
 
 <style>
@@ -132,6 +137,20 @@ if (isset($params['id'])) {
 		<div class="js-field-message"></div>
 	</div>
 	!-->
+	
+		<tr>
+		<td>
+		<label class="mw-ui-label"><?php _e('Campaign Email Sender'); ?></label> 
+		</td>
+		<td>
+		<select name="sender_account_id" class="mw-ui-field mw-ui-field-full-width">
+		<?php foreach($senders as $sender) : ?>
+		<option value="<?php echo $sender['id']; ?>"><?php echo $sender['name']; ?></option>
+		<?php endforeach; ?>
+		</select>
+		<div class="js-field-message"></div>
+		</td>
+		</tr>
 	
 	<div class="mw-ui-field-holder">
 		<label class="mw-ui-label"><?php _e('List'); ?></label> 

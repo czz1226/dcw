@@ -56,11 +56,11 @@ $config['tables'] = array(
 		'id' => 'integer',
 		'name' => 'text',
 		'success_email_template_id' => 'integer',
-		'success_email_sender_id' => 'integer',
-		'unsubscription_email_sender_id' => 'integer',
+		'success_sender_account_id' => 'integer',
+		'unsubscription_sender_account_id' => 'integer',
 		'unsubscription_email_template_id' => 'integer',
 		'confirmation_email_template_id' => 'integer',
-		'confirmation_email_sender_id' => 'integer',
+		'confirmation_sender_account_id' => 'integer',
 		'created_at' => 'dateTime'
 	),
     
