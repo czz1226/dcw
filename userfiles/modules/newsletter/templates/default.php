@@ -29,7 +29,7 @@ description: Default
         <div class="form-group hide-on-success">
             <label class="control-label requiredField" for="email1">
                 <?php _e('Email'); ?>
-                <span class="asteriskField">*</span>
+                <span class="asteriskField">*</span> 
             </label>
             <input class="form-control" name="email" placeholder="your@email.com" type="text"/>
         </div>
