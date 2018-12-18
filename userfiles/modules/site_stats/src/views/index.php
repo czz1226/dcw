@@ -13,9 +13,13 @@ if (isset($params['period'])) {
 
 <script>
     function mw_stats_period_switch_main($period) {
+        mw.tools.loading(50, 'fast');
         $(".dashboard_stats").fadeOut(function () {
+            mw.tools.loading(90, 'fast');
             $('#<?php print $module_id ?>').attr('period', $period);
-            mw.reload_module('#<?php print $module_id ?>');
+            mw.reload_module('#<?php print $module_id ?>', function(){
+                mw.tools.loading(false);
+            });
         })
     }
 
