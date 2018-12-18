@@ -1,6 +1,6 @@
 <div id="settings-holder">
     <br/><br/>
-    <h5 style="font-weight: bold; display: block;">Skin Settings</h5>
+    <h5 style="font-weight: bold; display: block;"><?php _lang("Skin Settings", "templates/dream"); ?></h5>
 
     <?php include 'settings_padding.php'; ?>
     <?php include 'settings_overlay.php'; ?>
@@ -14,6 +14,6 @@
 
     <div class="youtube-code" style="margin-top:15px;">
         <label class="mw-ui-label"><?php _lang("YouTube Video Code", "templates/dream"); ?></label>
-        <input type="text" name="youtube" placeholder="JyNIJ8U03I0" class="mw-ui-field mw_option_field"/>
+        <input type="text" name="youtube" placeholder="JyNIJ8U03I0" value="<?php echo $youtube; ?>" class="mw-ui-field mw_option_field"/>
     </div>
 </div>
