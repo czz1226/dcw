@@ -61,12 +61,12 @@
     }
     ?>
 
-    <link href="{TEMPLATE_URL}assets/dist/main.min.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="<?php echo template_url(); ?>assets/dist/main.min.css" rel="stylesheet" type="text/css" media="all"/>
 
-    <link href="{TEMPLATE_URL}assets/css/theme<?php print $color_scheme; ?>.css" id="theme-color" rel="stylesheet" type="text/css" media="all"/>
+    <link href="<?php echo template_url(); ?>assets/css/theme<?php print $color_scheme; ?>.css" id="theme-color" rel="stylesheet" type="text/css" media="all"/>
 
-    <link href="{TEMPLATE_URL}assets/css/custom.css" rel="stylesheet" type="text/css" media="all"/>
-    <link href="{TEMPLATE_URL}assets/css/mw-dream.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="<?php echo template_url(); ?>assets/css/custom.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="<?php echo template_url(); ?>assets/css/mw-dream.css" rel="stylesheet" type="text/css" media="all"/>
     <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic,700%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <?php if ($stop_transparent_nav != 'true'): ?>
@@ -186,7 +186,7 @@
         <div class="modal-content bg-white imagebg" data-width="100%" data-height="100%">
             <div class="pos-vertical-center clearfix">
                 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 text-center">
-                    <form class="clearfix" action="<?php print site_url(); ?>search.php" method="get">
+                    <form class="clearfix" action="<?php print site_url(); ?>search" method="get">
                         <div class="input-with-icon">
                             <i class="icon-Magnifi-Glass2 icon icon--sm"></i>
                             <input type="search" name="keywords" placeholder="<?php _lang("Type your search and hit enter", "templates/dream"); ?>"/>
