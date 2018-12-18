@@ -71,7 +71,7 @@ $current_lang = current_lang();
     }
 
     ?>
-    <a href="<?php print $link; ?>" target="_blank" id="login-logo"> <img src="<?php print mw()->ui->admin_logo_login(); ?>" alt="Logo"> <span class="mw-sign-version">v. <?php print MW_VERSION; ?></span> </a>
+
     <div class="mw-ui-box">
         <div class="mw-ui-box-content" id="admin_login">
             <?php if ($user != false): ?>

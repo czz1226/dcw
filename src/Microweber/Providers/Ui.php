@@ -7,15 +7,15 @@ class Ui
     public $custom_fields = array();
     public $admin_logo = '';
     public $admin_logo_login = '';
-    public $admin_logo_login_link = false;
-    public $logo_live_edit = '';
-    public $brand_name = 'Microweber';
+    public $admin_logo_login_link = '##';
+    public $logo_live_edit = '/userfiles/mini-logo.png';
+    public $brand_name = 'DCW';
     public $powered_by_link = false;
-    public $disable_powered_by_link = false;
-    public $disable_marketplace = false;
+    public $disable_powered_by_link = true;
+    public $disable_marketplace = true;
     public $marketplace_provider_id = false;
     public $marketplace_access_code = false;
-    public $enable_service_links = true;
+    public $enable_service_links = false;
     public $custom_support_url = false;
 
     public $modules_ui = array();
