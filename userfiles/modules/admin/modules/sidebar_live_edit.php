@@ -119,7 +119,7 @@
                                     <i class="mai-setting2"></i> Template settings
                                 </div>
                             </div>
-                            <div class="mw-accordion-content mw-ui-box mw-ui-box-content " style="display: none;">
+                            <div class="mw-accordion-content mw-ui-box mw-ui-box-content ">
                                 <div id="mw-live-edit-sidebar-settings-iframe-holder-template-settings"></div>
                             </div>
                         </div>
@@ -128,25 +128,21 @@
                     <?php } ?>
 
 
-
-                    <?php
-
-                    /* <div class="mw-accordion-item">
+                     <div class="mw-accordion-item" style="display: none;">
                         <div class="mw-ui-box-header mw-accordion-title">
                             <div class="header-holder">
                                 <i class="mai-setting2"></i> CSS Editor
                             </div>
                         </div>
-                        <div class="mw-accordion-content mw-ui-box mw-ui-box-content" style="display: none;">
-                            <div class="mw-ui-box-content tabitem css-editor-holder" style="display: none">
-                                <h3 class="mw-live-edit-tab-title"><?php echo("UI Editor"); ?></h3>
+                        <div class="mw-accordion-content mw-ui-box mw-ui-box-content">
+                            <div class="mw-ui-box-content css-editor-holder">
 
-                                <div id="mw-css-editor"></div>
+                                <div id="mw-css-editor-selected"></div>
+                               <?php /* <iframe src="<?php print site_url('editor_tools'); ?>" id="mw-css-editor"></iframe> */ ?>
+
                             </div>
                         </div>
-                    </div>*/
-
-                    ?>
+                    </div>
 
                 </div>
 
@@ -232,11 +228,7 @@
             ?>
 
 
-            <div class="mw-ui-box-content tabitem css-editor-holder" style="display: none">
-                <h3 class="mw-live-edit-tab-title"><?php echo("UI Editor"); ?></h3>
 
-                <div id="mw-css-editor__TEMP_REMOVE"></div>
-            </div>
         </div>
     </div>
 
@@ -244,6 +236,7 @@
 
         mw.require('prop_editor.js');
         mw.require('color.js');
+        //mw.require('libs/html2canvas/html2canvas.min.js');
 
         function mwSidebarSearchClear(what) {
             $('[data-id="mw-sidebar-search-input-for-modules-and-layouts"]').val('');
@@ -343,11 +336,10 @@
         }
 
         mw.on('liveEditSettingsReady', function () {
-            setScrollBoxes()
+            setScrollBoxes();
             setTimeout(function () {
                 mw.drag.toolbar_modules();
-                $("#mw-sidebar-layouts-list").removeClass("module")
-                $("#mw-sidebar-modules-list").removeClass("module")
+                $("#mw-sidebar-layouts-list, #mw-sidebar-modules-list").removeClass("module");
 
             }, 333)
 
@@ -361,8 +353,7 @@
     </script>
 
 
-  <?php
-  /*  <script>
+  <script>
 
 
         $(document).ready(function () {
@@ -370,47 +361,139 @@
 
             CSSEditorSchema = [
                 {
+                    interface: 'block',
+                    class: '',
+                    content: 'Size'
+                },
+                {
+                    interface: 'block',
+                    class: 'mw-css-editor-group',
+                    content: [
+                        {
+                            interface: 'size',
+                            label: 'Width',
+                            id: 'width'
+                        },
+                        {
+                            interface: 'size',
+                            label: 'Height',
+                            id: 'height'
+                        }
+                    ]
+                },
+                {
+                    interface: 'block',
+                    class: 'mw-css-editor-group',
+                    content: [
+                        {
+                            interface: 'size',
+                            label: 'Min width',
+                            id: 'minWidth'
+                        },
+                        {
+                            interface: 'size',
+                            label: 'Max width',
+                            id: 'maxWidth'
+                        }
+                    ]
+                },
+                {
+                    interface: 'block',
+                    class: 'mw-css-editor-group',
+                    content: [
+                        {
+                            interface: 'size',
+                            label: 'Min height',
+                            id: 'minHeight'
+                        },
+                        {
+                            interface: 'size',
+                            label: 'Max height',
+                            id: 'maxHeight'
+                        }
+                    ]
+                },
+                {
+                    interface: 'block',
+                    class: '',
+                    content: 'Margin'
+                },
+                {
                     interface: 'quatro',
-                    label: ['Margin top', 'Margin right', 'Margin bottom', 'Margin left'],
+                    label: [' top', 'right', 'bottom', 'left'],
                     id: 'margin'
                 },
                 {
+                    interface: 'block',
+                    class: '',
+                    content: 'Padding'
+                },
+                {
                     interface: 'quatro',
-                    label: ['Padding top', 'Padding right', 'Padding bottom', 'Padding left'],
+                    label: ['top', 'right', 'bottom', 'left'],
                     id: 'padding'
                 },
+
                 {
-                    interface: 'size',
-                    label: 'Font size',
-                    id: 'fontSize'
+                    interface: 'block',
+                    class: '',
+                    content: '<hr>Font'
                 },
                 {
-                    interface: 'color',
-                    label: 'Font color',
-                    id: 'color'
+                    interface: 'block',
+                    class: 'mw-css-editor-group',
+                    content: [
+                        {
+                            interface: 'size',
+                            label: 'Size',
+                            id: 'fontSize'
+                        },
+                        {
+                            interface: 'select',
+                            label: 'Weight',
+                            id: 'fontWeight',
+                            options: ['inherit', 'normal', 'bold', 'bolder', 'lighter', 100, 200, 300, 400, 500, 600, 700, 800, 900]
+                        }
+
+                    ]
                 },
                 {
-                    interface: 'color',
-                    label: 'Background color',
-                    id: 'backgroundColor'
+                    interface: 'block',
+                    class: 'mw-css-editor-group',
+                    content: [
+                        {
+                            interface: 'select',
+                            label: 'Style',
+                            id: 'fontStyle',
+                            options: ['italic', 'normal']
+                        },
+                        {
+                            interface: 'color',
+                            label: 'Color',
+                            id: 'color'
+                        }
+
+                    ]
                 },
                 {
-                    interface: 'select',
-                    label: 'Font weight',
-                    id: 'fontWeight',
-                    options: ['inherit', 'normal', 'bold', 'bolder', 'lighter', 100, 200, 300, 400, 500, 600, 700, 800, 900]
+                    interface: 'block',
+                    class: 'mw-css-editor-group',
+                    content: [
+                        {
+                            interface: 'select',
+                            label: 'Text transform',
+                            id: 'textTransform',
+                            options: ['none', 'uppercase', 'lowercase', 'capitalize']
+                        },
+                        {
+                            interface: 'size',
+                            label: 'Line Height',
+                            id: 'lineHeight'
+                        }
+                    ]
                 },
                 {
-                    interface: 'select',
-                    label: 'Font style',
-                    id: 'fontStyle',
-                    options: ['italic', 'normal']
-                },
-                {
-                    interface: 'select',
-                    label: 'Text transform',
-                    id: 'textTransform',
-                    options: ['none', 'uppercase', 'lowercase', 'capitalize']
+                    interface: 'hr'
                 },
                 {
                     interface: 'block',
@@ -422,49 +505,211 @@
                     label: ['Top Left', 'Top Right', 'Bottom Left', 'Bottom Right']
                 },
                 {
+                    interface: 'hr'
+                },
+                {
+                    interface:'block',
+                    content:'Background'
+                },
+                {
+                    interface: 'color',
+                    label: 'Color',
+                    id: 'backgroundColor'
+                },
+                {
                     interface: 'file',
                     id: 'backgroundImage',
-                    label: 'Background Image',
+                    label: 'Image',
                     types: 'images'
+                },
+                {
+                    interface: 'select',
+                    id: 'backgroundRepeat',
+                    label: 'Repeat',
+                    options: ['no-repeat', 'repeat-x', 'repeat-y', 'repeat']
+                },
+                {
+                    interface: 'select',
+                    id: 'backgroundSize',
+                    label: 'Size',
+                    options: ['auto', 'cover', {title: 'fit', value: 'contain'}, {title: 'scale', value: '100% 100%'}]
+                },
+                {
+                    interface: 'select',
+                    id: 'backgroundPosition',
+                    label: 'Position',
+                    options: [
+                        'center',
+                        {title: 'Top Left', value: '0 0'},
+                        {title: 'Top Center', value: '50% 0'},
+                        {title: 'Top Right', value: '100% 0'},
+                        {title: 'Middle Left', value: '0 50%'},
+                        {title: 'Middle Right', value: '100% 50%'},
+                        {title: 'Middle Right', value: '100% 50%'},
+                        {title: 'Bottom Left', value: '0 100%'},
+                        {title: 'Bottom Center', value: '50% 100%'},
+                        {title: 'Bottom Right', value: '100% 100%'}
+
+                    ]
+                },
+                {
+                    interface: 'hr'
                 }
+
+                /*{
+                    interface: 'select',
+                    id: 'backgroundClip',
+                    label: 'Clip',
+                    options: ['border-box', 'padding-box', 'content-box']
+                },
+                */
+                /*{
+                    interface: 'block',
+                    content: 'Element Shadow',
+                },
+                {
+                    interface: 'shadow',
+                    id: 'boxShadow'
+                }*/
+
             ];
 
-            mw.elementCSSEditor = new mw.propEditor.schema({
-                schema: CSSEditorSchema,
-                element: '#mw-css-editor'
+            $("#mw-css-editor").css({
+                position:'absolute',
+                top:0,
+                left:0,
+                width:'100%',
+                height:1460
+            });
+            
+            $("#mw-css-editor").on('load', function(){
+                this.contentWindow.mw.require('liveedit.css')
+                this.contentWindow.mw.$('body').css('background', '#fff');
+                mw.elementCSSEditor = new mw.propEditor.schema({
+                    schema: CSSEditorSchema,
+                    element: '#mw-css-editor'
+                });
+
+                var _prepareCSSValue = function(property, value){
+                    if(property === 'backgroundImage'){
+                        return 'url(' + value + ')';
+                    }
+                    return value;
+                };
+                var _setElementStyle = function(p, value){
+                    var val = _prepareCSSValue(p, value);
+                    var css = {};
+                    css[p] = val;
+                    if(p === 'backgroundClip') {
+                        css = {
+                            'background-clip':val,
+                            '-webkit-background-clip':val
+                        };
+                    }
+                    mw.$(mw.elementCSSEditor.currentElement).css(css);
+                };
+                $(mw.elementCSSEditor).on('change', function (event, property, value) {
+                    if($.isArray(value)){
+                        value = value[0];
+                    }
+                    _setElementStyle(property, value);
+                    mw.$(mw.elementCSSEditor.currentElement).attr('staticdesign', true);
+                });
+
             });
 
-            $(mw.elementCSSEditor).on('change', function (event, property, value) {
-                mw.$(mw.elementCSSEditor.currentElement).css(property, value);
-            });
-
-            mw.on("ElementClick", function (event, el) {
 
 
 
-                mw.elementCSSEditor.currentElement = el;
+            $(document.body).on("data-click", function (event) {
+
+                var el = event.target;
+                if(mw.tools.hasParentsWithClass(el, 'mw-control-box')){
+                    return;
+                }
+                mw.elementCSSEditor.currentElement = null;
+
+                $("#mw-css-editor-selected").css('backgroundImage', 'none')
+
+                if(el.id && !mw.tools.hasAnyOfClassesOnNodeOrParent(el, ['mw-defaults'])){
+                    mw.elementCSSEditor.currentElement = el;
+                }
+                else{
+                    mw.tools.foreachParents(el, function(loop){
+                        if(this.id && !mw.tools.hasAnyOfClassesOnNodeOrParent(this, ['mw-defaults'])){
+                            mw.elementCSSEditor.currentElement = this;
+                            mw.tools.stopLoop(loop);
+                        }
+                    });
+                }
+                if(!mw.elementCSSEditor.currentElement){
+                    return;
+                }
+
+
+
+                /*html2canvas(mw.elementCSSEditor.currentElement).then(function(canvas) {
+                    $("#mw-css-editor-selected").css('background-image', 'url(' + canvas.toDataURL() + ')');
+                });*/
+
+
 
                 var css = getComputedStyle(el);
+                var bgimg = css.backgroundImage;
+                if(bgimg.indexOf('url(') !== -1){
+                    bgimg = bgimg.split('(')[1].split(')')[0]
+                }
                 var val = {
                     margin: (css.marginTop + ' ' + css.marginRight + ' ' + css.marginBottom + ' ' + css.marginLeft),
                     padding: (css.paddingTop + ' ' + css.paddingRight + ' ' + css.paddingBottom + ' ' + css.paddingLeft),
-                    fontSize: css.fontSize,
+                    fontSize: el.style.fontSize || css.fontSize,
+                    letterSpacing: css.letterSpacing,
                     fontWeight: css.fontWeight,
                     fontStyle: css.fontStyle,
+                    lineHeight: css.lineHeight,
                     textTransform: css.textTransform,
+                    backgroundClip: css.backgroundClip,
                     color: mw.color.rgbToHex(css.color),
                     backgroundColor: mw.color.rgbToHex(css.backgroundColor),
-                    backgroundImage: css.backgroundImage,
+                    backgroundImage: bgimg,
+                    backgroundRepeat: css.backgroundRepeat,
+                    backgroundSize: css.backgroundSize,
+                    backgroundPosition: css.backgroundPosition,
+                    width: css.width,
+                    minWidth: css.minWidth,
+                    maxWidth: css.maxWidth,
+                    minHeight: css.minHeight,
+                    maxHeight: css.maxHeight,
+                    height: css.height,
+                    boxShadow: css.boxShadow,
                     borderRadius: (css.borderTopLeftRadius + ' ' + css.borderTopRightRadius + ' ' + css.borderBottomLeftRadius + ' ' + css.borderBottomRightRadius),
                 };
                 mw.elementCSSEditor.setValue(val);
             });
 
 
+
+
         });
 
 
-    </script>*/
+    </script>
 
-  ?>
+
+        <script>
+
+
+
+            mw.liveEditDynamicTemp = {};
+
+        </script>
+
+        <style type="text/css" id="mw-dynamic-css">
+
+
+
+        </style>
+
+
+
 </div>

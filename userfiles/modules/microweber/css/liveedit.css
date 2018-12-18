@@ -9,9 +9,6 @@
 
 *********************************************/
 
-html {
-    font-size: 13px;
-}
 
 html, body {
     min-height: 100%;
@@ -23,6 +20,24 @@ body.mw-live-edit .mw-control-box-right,
 body.mw-live-edit .mw-control-box-left {
     top: 55px;
 }
+
+
+#mw-text-editor a.mw-ui-btn-medium,
+#mw-text-editor .mw-ui-btn-medium,
+.mw-active-item .mw_edit_settings{
+    height: 34px;
+    line-height: 34px;
+    font-size: 13px;
+}
+
+#live_edit_toolbar,
+#mw_handle_module,
+.mw_editor,
+#mw-text-editor .mw-ui-btn,
+#mw-text-editor {
+    font-size: 13px;
+}
+
 
 .mw-drag-current-top.modules-layouts, .mw-drag-current-bottom.modules-layouts {
     transition: all .9s !important;
@@ -639,6 +654,12 @@ a.mw-make-cols {
     transition: opacity 0.3s, transform 0.3s;
     transform: scale(.5) translateY(10px);
     z-index: 2;
+}
+
+.module-active-layouts .mw-element-name-handle{
+    font-size: 0;
+    top: -4px;
+    position: relative;
 }
 
 .mw_edit_settings [class*="mw-icon-"] {
@@ -3914,6 +3935,7 @@ body.dragStart .allow-drop {
 .prop-ui-field-quatro .prop-ui-field-holder {
     float: left;
     width: 48%;
+    clear: none;
 }
 
 .prop-ui-field-quatro .prop-ui-field-holder:nth-child(even) {
@@ -3943,6 +3965,19 @@ body.dragStart .allow-drop {
 .prop-ui-field[type='text'],
 .prop-ui-field[type='number'] {
     width: 100%;
+}
+
+.prop-ui-field-holder-size input.prop-ui-field{
+    max-width: -webkit-calc(100% - 70px);
+    max-width: calc(100% - 70px);
+}
+
+.mw-css-editor-group .prop-ui-field-unit,
+.prop-ui-field-unit{
+    max-width: 70px;
+    background: #f3f3f3;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .mw-module-presets-opener {
@@ -4250,3 +4285,30 @@ body.dragStart .allow-drop {
 }
 
 .tooltip-icon-picker{ width: 425px; }
+
+#mw-css-editor-selected{
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 90px;
+    border: 1px solid #dadada;
+    background-color: #dcd7d763;
+    display: none;
+}
+
+.mw-css-editor-group > *+*{
+    margin-left:5px;
+}
+.mw-css-editor-group .prop-ui-field-holder{
+    width: 100%;
+    flex:1 1 auto;
+}
+.mw-css-editor-group .mw-ui-field{
+    width: 100%;
+}
+.mw-css-editor-group{
+    display: flex;
+    justify-content: space-between;
+}
+
+

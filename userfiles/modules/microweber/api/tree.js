@@ -212,7 +212,7 @@ mw.lib.require('nestedsortable');
             }
             //if(!li) {console.warn('List item not defined:', li, type)}
             return li;
-        }
+        };
 
         this.isSelected = function(li, type){
             li = this.get(li, type);
@@ -245,7 +245,40 @@ mw.lib.require('nestedsortable');
             li.classList.add(this.options.openedClass);
             $(li.children).filter('mwbutton').addClass(this.options.openedClass);
             if(!_skipsave) this.saveState()
+        };
+        this.show = function(li, type){
+            if(Array.isArray(li)){
+                $.each(li, function(){
+                    scope.show(this);
+                });
+                return;
+            }
+            li = this.get(li, type);
+            if(!li) return;
+            li.classList.remove('mw-tree-item-hidden');
+            $(li).parents(".mw-tree-item-hidden").removeClass('mw-tree-item-hidden').each(function(){
+                scope.open(this);
+            });
+        };
 
+        this.showAll = function(){
+            $(this.list.querySelectorAll('li')).removeClass('mw-tree-item-hidden');
+        };
+
+        this.hide = function(li, type){
+            if(Array.isArray(li)){
+                $.each(li, function(){
+                    scope.hide(this);
+                });
+                return;
+            }
+            li = this.get(li, type);
+            if(!li) return;
+            li.classList.add('mw-tree-item-hidden');
+        };
+
+        this.hideAll = function(){
+            $(this.list.querySelectorAll('li')).addClass('mw-tree-item-hidden');
         };
 
         this.close = function(li,type, _skipsave){
@@ -599,7 +632,7 @@ mw.lib.require('nestedsortable');
                     scope.addHelperClasses(ch, level);
                 }
            })
-        }
+        };
 
         this.loadSelected = function(){
             if(this.selectedData){
